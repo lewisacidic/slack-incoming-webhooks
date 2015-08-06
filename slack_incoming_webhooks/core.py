@@ -57,6 +57,7 @@ class Attachment(object):
 
     def to_dict(self):
         d = {
+            "title": self.title,
             "fallback": self.fallback,
             "color": self.color
         }

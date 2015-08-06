@@ -42,7 +42,7 @@ class SystemUsageAttachment(Attachment):
 class ProcessReportAttachment(Attachment):
 
     def __init__(self, number=10):
-        super(ProcessReportAttachment, self).__init__(self, "Process Report", text=self.process_report(number))
+        super(ProcessReportAttachment, self).__init__("Process Report", "#2b00fc", text=self.process_report(number))
 
     def process_report(self, number=None):
 
@@ -57,7 +57,7 @@ class ProcessReportAttachment(Attachment):
                 '{}%'.format(p.cpu_percent()),
                 '{}%'.format(p.memory_percent()))
             for p in psutil.process_iter()],
-            key=lambda p: int(p[2][:-1], reverse=True)[:number]
+            key=lambda p: float(p[2][:-1]), reverse=True)[:number]
         lengths = [12, 8, 6, 6]
         string = """```Process Name  User      CPU     Memory \n""" +\
         """------------  --------  ------  ------\n"""
@@ -83,7 +83,7 @@ def main_loop(name="Calculon", channel="#servers", emoji=":calculon:"):
             ProcessReportAttachment()
         ]
         if restart_required():
-            attachments.insert(0, Attachment("Restart Required", "warning"))
+            attachments.insert(0, Attachment("Restart Required", "danger", text="Calculon needs a break."))
 
         m = Message('Running status:', time.ctime(), emoji=emoji, attachments=attachments)
         m.send(POST_URL, username=name, channel=channel)
