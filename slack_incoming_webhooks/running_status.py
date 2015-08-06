@@ -54,8 +54,8 @@ class ProcessReportAttachment(Attachment):
             [(
                 p.name(),
                 p.username(),
-                '{}%'.format(p.get_cpu_percent()),
-                '{}%'.format(p.get_memory_percent()))
+                '{}%'.format(p.cpu_percent()),
+                '{}%'.format(p.memory_percent()))
             for p in psutil.process_iter()],
             key=lambda p: p[2], reverse=True)[:number]
         lengths = [12, 8, 6, 6]
