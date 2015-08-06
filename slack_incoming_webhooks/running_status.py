@@ -57,7 +57,7 @@ class ProcessReportAttachment(Attachment):
                 '{}%'.format(p.cpu_percent()),
                 '{}%'.format(p.memory_percent()))
             for p in psutil.process_iter()],
-            key=lambda p: p[2], reverse=True)[:number]
+            key=lambda p: int(p[2][:-1], reverse=True)[:number]
         lengths = [12, 8, 6, 6]
         string = """```Process Name  User      CPU     Memory \n""" +\
         """------------  --------  ------  ------\n"""
