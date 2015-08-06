@@ -24,7 +24,7 @@ class MemoryField(Field):
         super(MemoryField, self).__init__("Memory Usage", self.memory_usage(), short=True)
 
     def memory_usage(self):
-        return str(psutil.phymem_usage().percent) + '%'
+        return str(psutil.virtual_memory().percent) + '%'
 
 class DiskField(Field):
     def __init__(self):
